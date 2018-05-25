@@ -1,17 +1,64 @@
 <html>
 <head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{url_for('static', filename='myo.js')}}"></script>
 	<script type="text/javascript">
 		console.log("Activated..");
-		
 		Myo.connect('com.sengupta.neil');	
+
 		Myo.on('fist', function(){
 			console.log('object gripped');
+
+			var date = new Date();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
+			console.log(currentTime);
+
+			$.ajax({
+				url: '/myoData',
+				data: {
+					gestureType: "pickup",
+					timestamp: currentTime
+				},
+				type: 'POST',
+				success: function(response){
+					console.log(response);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+			
 			this.vibrate();
-		});
+	  });
 
 		Myo.on('fist_off', function(){
 			console.log('object dropped');
+
+			var date = new Date();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
+			console.log(currentTime);
+
+			$.ajax({
+				url: '/myoData',
+				data: {
+					"gestureType": "drop",
+					"timestamp": currentTime
+				},
+				type: 'POST',
+				success: function(response){
+					console.log(response);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+
 			this.vibrate();
 		});
 	</script>
