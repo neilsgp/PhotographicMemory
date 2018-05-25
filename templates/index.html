@@ -3,10 +3,8 @@
 	<script src="{{url_for('static', filename='myo.js')}}"></script>
 	<script type="text/javascript">
 		console.log("Activated..");
-
-		Myo.connect('com.sengupta.neil');
-		Myo.setLockingPolicy("none");	
-
+		
+		Myo.connect('com.sengupta.neil');	
 		Myo.on('fist', function(){
 			console.log('object gripped');
 			this.vibrate();
