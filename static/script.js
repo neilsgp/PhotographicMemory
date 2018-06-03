@@ -11,10 +11,11 @@ $(document).ready(function(){
 		canvas.width = 480;
 		canvas.height = 360;
 		
-		snapshotButton.onclick = function() {
-			console.log("button click");
-  			canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-		};
+		function snapshot(){
+			console.log("snapshot..");
+			canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+			var image = canvas.toDataURL("image/png");
+		}
 
 		const constraints = {
 			video: true
@@ -32,17 +33,18 @@ $(document).ready(function(){
 		then(handleSuccess).catch(handleError);
 	}
 	
-	snapshot();
+	// snapshot();
 	Myo.connect('com.sengupta.neil');	
 
 	Myo.on('fist', function(){
 		console.log('object gripped');
-		takeSnapshot();
+		snapshot();
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var seconds = date.getSeconds();
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
+		
 		console.log(currentTime);
 
 		$.ajax({
@@ -65,7 +67,8 @@ $(document).ready(function(){
 
 	Myo.on('fist_off', function(){
 		console.log('object dropped');
-		takeSnapshot();
+		snapshot();
+
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
