@@ -11,11 +11,10 @@ $(document).ready(function(){
 		canvas.width = 480;
 		canvas.height = 360;
 		
-		function snapshot(){
-			console.log("snapshot..");
-			canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-			var image = canvas.toDataURL("image/png");
-		}
+		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+		var image = canvas.toDataURL("image/png");
+		//console.log("Image = ");
+		//console.log(image);
 
 		const constraints = {
 			video: true
@@ -29,8 +28,10 @@ $(document).ready(function(){
 		  console.error('Error in video initialization.', error);
 		}
 
-		navigator.mediaDevices.getUserMedia(constraints).
-		then(handleSuccess).catch(handleError);
+		navigator.mediaDevices.getUserMedia(constraints)
+		.then(handleSuccess).catch(handleError);
+
+		return image;
 	}
 	
 	// snapshot();
@@ -38,7 +39,8 @@ $(document).ready(function(){
 
 	Myo.on('fist', function(){
 		console.log('object gripped');
-		snapshot();
+		
+		var snap = snapshot();
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
@@ -46,12 +48,14 @@ $(document).ready(function(){
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
 		
 		console.log(currentTime);
+		console.log(snap);
 
 		$.ajax({
 			url: '/myoData',
 			data: {
 				gestureType: "pickup",
-				timestamp: currentTime
+				timestamp: currentTime,
+				image: snap
 			},
 			type: 'POST',
 			success: function(response){
@@ -67,20 +71,22 @@ $(document).ready(function(){
 
 	Myo.on('fist_off', function(){
 		console.log('object dropped');
-		snapshot();
 
+		var snap = snapshot();
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var seconds = date.getSeconds();
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
+
 		console.log(currentTime);
 
 		$.ajax({
 			url: '/myoData',
 			data: {
-				"gestureType": "drop",
-				"timestamp": currentTime
+				gestureType : "drop",
+				timestamp : currentTime
+				image: snap
 			},
 			type: 'POST',
 			success: function(response){
