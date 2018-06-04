@@ -13,8 +13,6 @@ $(document).ready(function(){
 		
 		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 		var image = canvas.toDataURL("image/png");
-		//console.log("Image = ");
-		//console.log(image);
 
 		const constraints = {
 			video: true
@@ -34,7 +32,6 @@ $(document).ready(function(){
 		return image;
 	}
 	
-	// snapshot();
 	Myo.connect('com.sengupta.neil');	
 
 	Myo.on('fist', function(){
@@ -48,7 +45,6 @@ $(document).ready(function(){
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
 		
 		console.log(currentTime);
-		console.log(snap);
 
 		$.ajax({
 			url: '/myoData',
@@ -85,7 +81,7 @@ $(document).ready(function(){
 			url: '/myoData',
 			data: {
 				gestureType : "drop",
-				timestamp : currentTime
+				timestamp : currentTime,
 				image: snap
 			},
 			type: 'POST',
