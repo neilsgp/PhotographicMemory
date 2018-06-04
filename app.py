@@ -11,6 +11,7 @@ def main():
 @app.route("/myoData", methods=['POST'])
 def myoData():
 	toStore = {}
+
 	toStore["gestureType"] = str(request.form["gestureType"])
 	toStore["timestamp"] = str(request.form["timestamp"])
 	toStore["imageb64"] = str(request.form["image"])
@@ -18,7 +19,9 @@ def myoData():
 	jsonString = json.dumps(toStore)
 	jsonObject = json.loads(jsonString)
 
-	with open('data.txt', 'w') as outfile:
+
+	with open('data.txt', 'a+') as outfile:
+		outfile.write("\n")
 		json.dump(jsonObject, outfile)
 		
 	return(jsonString)
