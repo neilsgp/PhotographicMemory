@@ -21,9 +21,30 @@ def myoData():
 
 
 	with open('data.txt', 'a+') as outfile:
-		outfile.write("\n")
 		json.dump(jsonObject, outfile)
+		outfile.write("\n")
 		
+	string_to_image = []
+	with open('data.txt') as f: 
+		for x in f.readlines():
+			x = x.strip("\n")
+			print(" hello")
+			jsonObj = json.loads(x)
+			imageObj = jsonObj["imageb64"]
+			image = imageObj.split(",")[1]
+			underscore = "_"
+			name = jsonObj["timestamp"] + underscore + jsonObj["gestureType"]
+			with open(name + ".png", "wb") as fh:
+				fh.write(image.decode('base64'))
+
+
+
+
+
+
+
+
+
 	return(jsonString)
 
 if __name__ == "__main__":
