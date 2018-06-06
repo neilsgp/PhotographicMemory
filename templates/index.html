@@ -3,10 +3,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{url_for('static', filename='myo.js')}}"></script>
 	<script src="{{url_for('static', filename='script.js')}}"></script>
-	
+
 <style>
 body {
-	background-color: lightblue;
+	//background-color: lightblue;
 }
 
 .top {
@@ -14,7 +14,7 @@ body {
 	text-align: center;
 	height: 60%;
 	width: 100%;
-	background-color: blue;
+	//background-color: blue;
 }
 
 .bot {
@@ -22,18 +22,18 @@ body {
 	text-align: center;
 	height: 40%;
 	width: 100%;
-	background-color: red;
+	//background-color: red;
 }
 .side {
 	float: left;
 	width: 640px;
 	height: 320px;
-	background-color: green;
+	//background-color: green;
 	height: 100%;
 }
-canvas {
-
-	
+video {
+	height: 320px;
+	width: 640px;
 }
 </style>	
 </head>
@@ -50,8 +50,9 @@ canvas {
 	
 	<div class = "bot">
 		PHOTO GALLERY
+		<button id="snap">snapshot</button>
 	</div>
-	<!--button id="snap">snapshot</button-->
+	
 	
 </body>
 </html>
