@@ -9,18 +9,49 @@ body {
 	background-color: lightblue;
 }
 
-div {
-	background-color: black;
+.top {
+	float: top;
+	text-align: center;
+	height: 60%;
+	width: 100%;
+	background-color: blue;
 }
-</style>
+
+.bot {
+	float: bottom;
+	text-align: center;
+	height: 40%;
+	width: 100%;
+	background-color: red;
+}
+.side {
+	float: left;
+	width: 640px;
+	height: 320px;
+	background-color: green;
+	height: 100%;
+}
+canvas {
+
 	
+}
+</style>	
 </head>
 <body>	
-	<div>
-		<video height="640" width="320" autoplay></video>
+	
+	<div class = "top">
+		WEBCAM AND TAKEN PICTURE HERE
+		
 		<canvas></canvas>
+		<div class = "side">
+			<video autoplay></video>
+		</div>
 	</div>
-	<button id="snap">snapshot</button>
+	
+	<div class = "bot">
+		PHOTO GALLERY
+	</div>
+	<!--button id="snap">snapshot</button-->
 	
 </body>
 </html>
