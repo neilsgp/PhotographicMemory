@@ -30,7 +30,7 @@ $(document).ready(function(){
 		  video.srcObject = stream;
 		}
 
-		function handleError(error) {
+		function handleError(error){
 		  console.error('Error in video initialization.', error);
 		}
 
