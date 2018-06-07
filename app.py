@@ -1,11 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 import os
 import json
 
 app = Flask(__name__)
 
 @app.route("/")
-def main():
+def login():
+	return render_template('login.html')
+
+@app.route("/pair")
+def pair():
+	return render_template('pair.html')
+
+@app.route("/login")
+def index():
 	return render_template('index.html')
 
 @app.route("/myoData", methods=['POST'])
@@ -19,31 +27,22 @@ def myoData():
 	jsonString = json.dumps(toStore)
 	jsonObject = json.loads(jsonString)
 
-
 	with open('data.txt', 'a+') as outfile:
 		json.dump(jsonObject, outfile)
 		outfile.write("\n")
 		
-	string_to_image = []
-	with open('data.txt') as f: 
-		for x in f.readlines():
-			x = x.strip("\n")
-			print(" hello")
-			jsonObj = json.loads(x)
-			imageObj = jsonObj["imageb64"]
-			image = imageObj.split(",")[1]
-			underscore = "_"
-			name = jsonObj["timestamp"] + underscore + jsonObj["gestureType"]
-			with open(name + ".png", "wb") as fh:
-				fh.write(image.decode('base64'))
-
-
-
-
-
-
-
-
+	# string_to_image = []
+	# with open('data.txt') as f: 
+	# 	for x in f.readlines():
+	# 		x = x.strip("\n")
+	# 		print(" hello")
+	# 		jsonObj = json.loads(x)
+	# 		imageObj = jsonObj["imageb64"]
+	# 		image = imageObj.split(",")[1]
+	# 		underscore = "_"
+	# 		name = jsonObj["timestamp"] + underscore + jsonObj["gestureType"]
+	# 		with open(name + ".png", "wb") as fh:
+	# 			fh.write(image.decode('base64'))
 
 	return(jsonString)
 

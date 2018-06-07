@@ -1,12 +1,64 @@
 <html>
 <head>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
 	<script src="{{url_for('static', filename='myo.js')}}"></script>
 	<script src="{{url_for('static', filename='script.js')}}"></script>
+	<script>
+		function auth() {
+            var config = {
+                'client_id': '249421341655-t3direavmru42gl0ul0sv6a9gc0rcsoj.apps.googleusercontent.com',
+                'scope': [
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'https://www.googleapis.com/auth/glass.timeline',
+                    'https://www.googleapis.com/auth/glass.location'
+                ]
+            };
+            gapi.auth.authorize(config, function () {
+                console.log('login complete');
+                console.log(gapi.auth.getToken());
+            });
+        }
+	</script>
+	<!-- <style>
+		body{
+			background: #5352ed;
+			max-height: 100%;
+			max-width: 100%;
+		}
+
+		.row1{
+			max-width: 960px;
+			display: inline-block; 
+			width: 100%;
+			border: 1px solid red;
+		}
+
+		.webcam{
+			background: #d63031;
+			width: 480px;
+			height: 380px;
+			float: left;
+		}
+
+		.last-taken{
+			background: blue;
+			width: 480px;
+			height: 380px;
+			float: left;
+		}
+	</style> -->
 </head>
 <body>	
-	<video height="640" width="320" autoplay></video>
-	<button id="snap">snapshot</button>
-	<canvas></canvas>
+	<!-- <div class = "row1">
+		<div class = "webcam">WEBCAM<div>
+		<div class = "last-taken">LAST TAKEN<div>
+	</div>
+
+	<div class = "camera-roll"><div> -->
+	<!-- <button onclick="auth();">Authorize</button> -->
+	<video height="640px" width="320px" autoplay></video>
+	<canvas height="300px" width="320px"></canvas>
+	<div id="roll"></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	console.log("Activated..");
 
+	
 	function snapshot(){
 		console.log("snapshot..");
 		
@@ -13,6 +14,13 @@ $(document).ready(function(){
 		
 		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 		var image = canvas.toDataURL("image/png");
+
+		var elem = document.createElement("img");
+		elem.setAttribute("src", image);
+		elem.setAttribute("height", "200");
+		elem.setAttribute("width", "200");
+	
+		document.getElementById("roll").appendChild(elem);
 
 		const constraints = {
 			video: true
