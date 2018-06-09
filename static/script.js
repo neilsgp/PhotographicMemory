@@ -20,7 +20,7 @@ $(document).ready(function(){
 		elem.setAttribute("height", "200");
 		elem.setAttribute("width", "200");
 	
-		document.getElementById("roll").appendChild(elem);
+		document.getElementById("camera-roll").appendChild(elem);
 
 		const constraints = {
 			video: true
@@ -63,7 +63,7 @@ $(document).ready(function(){
 			},
 			type: 'POST',
 			success: function(response){
-				console.log(response);
+				console.log("response sent");
 			},
 			error: function(error){
 				console.log(error);
@@ -94,7 +94,7 @@ $(document).ready(function(){
 			},
 			type: 'POST',
 			success: function(response){
-				console.log(response);
+				console.log("response sent");
 			},
 			error: function(error){
 				console.log(error);
