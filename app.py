@@ -12,7 +12,7 @@ def login():
 def pair():
 	return render_template('pair.html')
 
-@app.route("/login")
+@app.route("/index")
 def index():
 	return render_template('index.html')
 
@@ -43,7 +43,6 @@ def myoData():
 	# 		name = jsonObj["timestamp"] + underscore + jsonObj["gestureType"]
 	# 		with open(name + ".png", "wb") as fh:
 	# 			fh.write(image.decode('base64'))
-
 	return(jsonString)
 
 if __name__ == "__main__":

@@ -4,8 +4,9 @@
 <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet' type='text/css'>
 <style>
 	body{
-		background:#6c5ce7;
+		background:#130f40;
 	}
+
 	.loader{
 		margin:200px auto;
 	}
@@ -65,6 +66,7 @@
 		background:#F1C40F;
 		z-index:100;
 	}
+
 	.loader span:nth-child(4){
 		background:#2FCC71;
 		-webkit-animation:kanan 1.2s infinite linear;
@@ -137,16 +139,30 @@
 		100%{-o-transform:translateX(-20px);
 		}
 	}
+
+	a{
+		color: white;
+		text-decoration: none;
+	}
+
+	a:hover{
+		text-decoration: underline;
+		transition-delay: 3s;
+	}
 </style>
 </head>
 
 <body>
 <div class="loader">
-    <h1>Pair Phone...</h1>
+    <h1>Scan QR code to Pair Phone </h1>
     <span></span>
     <span></span>
-    <span></span><br><br><br>
-	<a class="btn btn-primary btn-large btn-block" href="{{url_for('index')}}">login</a>
+    <span></span>
+    <br><br>
+    <center>
+   		<img height="200" width="200" src="https://puu.sh/ACeso/51bbccc5b1.png"></img>
+	</center> <br> 
+	<center> <h1> <a href="{{url_for('index')}}">Enter Portal &rarr;</h1></a><center>
 </div>
 </body>
 </html>
