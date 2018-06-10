@@ -2,6 +2,9 @@
   <head>
     <title>{{ title }}</title>
     <script src="https://apis.google.com/js/client.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+  </head>
+  <body>
     <script>
         function authAndSend() {
             //filling out config which contains the client id and the services we can access
@@ -22,27 +25,30 @@
                 accessToken = gapi.auth.getToken().access_token; 
                 console.log(accessToken)
                 //creating items being pushed to glass and making a json
-                console.log('creating params for HTTP Request to insert to glass')
-                var params = {};
-                params.text =  'Hello ,Neil Its working.';
-                params.notification = {};
-                params.notification.level = 'DEFAULT';
-                var data = JSON.stringify(params);
+                let data = {
+                    "text": "Google GlASS API actually works",
+                    "notification": {
+                        "level": "DEFAULT"
+                    }
+                }
+
 
                 //specifying HTTP specifics and having POST method which inserts to timeline
                 var options = {
-                host: 'www.googleapis.com',
-                path: '/mirror/v1/timeline',
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Content-Length': data.length,
-                  'Authorization': 'Bearer ' + accessToken
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + accessToken
+                    }
                 }
-              }
-              //se
-              post_req.write();
-              post_req.end();
+
+              
+
+                axios.post('https://www.googleapis.com/mirror/v1/timeline', data, options)
+                    .then((res) => { console.log("RESPONSE RECEIVED: ", res); })
+                    .catch((err) => { console.log("AXIOS ERROR: ", err); })
+
+ 
+
             });
 
 
@@ -50,8 +56,6 @@
         }
 
 </script>
-  </head>
-  <body>
     <h1>{{ title }}</h1>
     <button onclick="authAndSend();">Send to glass</button>
   </body>
