@@ -2,7 +2,7 @@ $(document).ready(function(){
 	console.log("Activated..");
 
 	
-	function snapshot(){
+	function snapshot(currentTime){
 		console.log("snapshot..");
 		
 		var snapshotButton = document.querySelector("#snap");
@@ -15,12 +15,21 @@ $(document).ready(function(){
 		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 		var image = canvas.toDataURL("image/png");
 
+		var parentNode = document.getElementById("slider-list");
+		var time = document.createElement('li');
+		var text = document.createTextNode( new Date().toString() );
+		// text.style.font-color = "red";
+		time.appendChild(text);
+		
+		//Insers new image node here
+		parentNode.appendChild(time);		
+
 		var elem = document.createElement("img");
 		elem.setAttribute("src", image);
-		elem.setAttribute("height", "200");
-		elem.setAttribute("width", "200");
+		elem.setAttribute("height", "250");
+		elem.setAttribute("width", "300");
 	
-		document.getElementById("camera-roll").appendChild(elem);
+		//var document.getElementById("camera-roll").appendChild(elem);
 
 		const constraints = {
 			video: true
@@ -45,12 +54,13 @@ $(document).ready(function(){
 	Myo.on('fist', function(){
 		console.log('object gripped');
 		
-		var snap = snapshot();
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var seconds = date.getSeconds();
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
+
+		var snap = snapshot(currentTime);
 		
 		console.log(currentTime);
 
@@ -76,13 +86,14 @@ $(document).ready(function(){
 	Myo.on('fist_off', function(){
 		console.log('object dropped');
 
-		var snap = snapshot();
 		var date = new Date();
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var seconds = date.getSeconds();
 		var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
 
+		var snap = snapshot(currentTime);
+		
 		console.log(currentTime);
 
 		$.ajax({
