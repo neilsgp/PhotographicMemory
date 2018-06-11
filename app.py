@@ -16,6 +16,10 @@ def pair():
 def index():
 	return render_template('index.html')
 
+@app.route("/glass")
+def glass():
+	return render_template('oauth21.htm')
+
 @app.route("/myoData", methods=['POST'])
 def myoData():
 	toStore = {}
@@ -30,7 +34,6 @@ def myoData():
 	with open('data.txt', 'a+') as outfile:
 		json.dump(jsonObject, outfile)
 		outfile.write("\n")
-		
 	# string_to_image = []
 	# with open('data.txt') as f: 
 	# 	for x in f.readlines():
