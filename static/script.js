@@ -1,6 +1,17 @@
 $(document).ready(function(){
     console.log("Activated..");
- 
+ 	
+ 	function uploadImage(file){
+ 		const client = filestack.init('AiKHytgzdQOpEXfCa7TYcz');
+ 		client.upload(file)
+		.then(res => {
+			console.log('success: ', res)
+		})
+		.catch(err => {
+			console.log(err)
+		});
+ 	}
+
     function authAndSend(picture){
         //filling out config which contains the client id and the services we can access
         var config = {
@@ -11,7 +22,9 @@ $(document).ready(function(){
                 'https://www.googleapis.com/auth/glass.location'
             ]
         };
- 
+ 		
+ 		var fileStackLink = uploadImage(picture);
+
         //authenticating and getting token
         gapi.auth.authorize(config, function (){
             console.log("getting token inside authorize")
@@ -24,17 +37,18 @@ $(document).ready(function(){
             var seconds = date.getSeconds();
            
             var currentTime = ("" + hours + ":" + minutes + ":" + seconds);
-           
             // var sendImage = document.createElement('img');
             // sendImage.src = "https://imgur.com/a/ytHIVeW";
             // sendImageString = sendImage.outerHTML;
+
+            sendImageString = "<img src=\"+ +\"";
             var sendImageString = "<img src=\"https://www.visioncritical.com/wp-content/uploads/2014/12/BLG_Andrew-G.-River-Sample_09.13.12.png\"";
             console.log(sendImageString)
  
             //<img src=\"https://mirror-api-playground.appspot.com/links/filoli-spring-fling.jpg\"
  
             //creating items being pushed to glass and making a json
-            var sendString = `<article class=\"photo\">\n  ${sendImageString} width=\"100%\" height=\"100%\">\n  <section>\n    <p class=\"text-auto-size\">\n \n    </p>\n  <section>\n</article>\n `          
+            var sendString = `<article class=\"photo\">\n  ${sendImageString} width=\"100%\" height=\"100%\">\n  <section>\n    <p class=\"text-auto-size\">\n \n  ${currentTime} </p>\n  <section>\n</article>\n `          
             console.log(sendString);
             let data = {
               "html": sendString,
@@ -107,17 +121,18 @@ $(document).ready(function(){
  
     Myo.on('fist', function(){
         console.log('object gripped');
-       
-        authAndSend();
- 
+
         var date = new Date();
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var seconds = date.getSeconds();
         var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
- 
+ 	
+ 		//get image 
         var snap = snapshot(currentTime);
-       
+
+        authAndSend(snap);
+       	
         console.log(currentTime);
  
         $.ajax({
@@ -142,8 +157,6 @@ $(document).ready(function(){
     Myo.on('fist_off', function(){
         console.log('object dropped');
  
-        authAndSend();
- 
         var date = new Date();
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -151,7 +164,8 @@ $(document).ready(function(){
         var currentTime = ("" + hours + ":" + minutes + ":" + seconds)
  
         var snap = snapshot(currentTime);
-       
+        authAndSend(snap);
+       	
         console.log(currentTime);
  
         $.ajax({
