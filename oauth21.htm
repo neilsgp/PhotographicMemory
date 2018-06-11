@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+  </head>
+  <body>
+    <script>
+        function authAndSend() {
+            //filling out config which contains the client id and the services we can access
+            var config = {
+                'client_id': '52450915676-vbodirphpocn2lr6v7dscpp100o2pfn3.apps.googleusercontent.com',
+                'scope': [
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'https://www.googleapis.com/auth/glass.timeline',
+                    'https://www.googleapis.com/auth/glass.location'
+                ]
+            };
+
+            //authenticating and getting token
+
+
+            gapi.auth.authorize(config, function () {
+                console.log("getting token inside authorize")
+                accessToken = gapi.auth.getToken().access_token; 
+                console.log(accessToken)
+                //creating items being pushed to glass and making a json
+                let data = {
+                    "text": "Google GlASS API actually works",
+                    "notification": {
+                        "level": "DEFAULT"
+                    }
+                }
+
+
+                //specifying HTTP specifics and having POST method which inserts to timeline
+                var options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                }
+
+              
+
+                axios.post('https://www.googleapis.com/mirror/v1/timeline', data, options)
+                    .then((res) => { console.log("RESPONSE RECEIVED: ", res); })
+                    .catch((err) => { console.log("AXIOS ERROR: ", err); })
+
+ 
+
+            });
+
+
+
+        }
+
+</script>
+    <h1>{{ title }}</h1>
+    <button onclick="authAndSend();">Send to glass</button>
+  </body>
+</html>
