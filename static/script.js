@@ -2,20 +2,30 @@ $(document).ready(function(){
     console.log("Activated..");
  	
  	function uploadImage(file){
+    	console.log("In filestack upload...");
+    	var link  = "";
+
  		const client = filestack.init('AiKHytgzdQOpEXfCa7TYcz');
+ 		
  		client.upload(file)
 		.then(res => {
-			console.log('success: ', res)
+			console.log('file upload success: ', res);
+			link = res["url"];
+			console.log(link);
+			return link;
 		})
+
 		.catch(err => {
 			console.log(err)
 		});
  	}
 
     function authAndSend(picture){
+    	console.log("In Auth...");
+
         //filling out config which contains the client id and the services we can access
         var config = {
-            'client_id': '52450915676-n9llk11md7gled9d7q2hvadujrcmsbnt.apps.googleusercontent.com',
+            'client_id': '52450915676-rc26i689nrng0gi0i7bsle3p9vm9oqt9.apps.googleusercontent.com',
             'scope': [
                 'https://www.googleapis.com/auth/userinfo.profile',
                 'https://www.googleapis.com/auth/glass.timeline',
@@ -23,7 +33,9 @@ $(document).ready(function(){
             ]
         };
  		
- 		var fileStackLink = uploadImage(picture);
+ 		// var fileStackLink = uploadImage(picture);
+
+ 		// console.log("CDN =" + fileStackLink);
 
         //authenticating and getting token
         gapi.auth.authorize(config, function (){
@@ -37,16 +49,16 @@ $(document).ready(function(){
             var seconds = date.getSeconds();
            
             var currentTime = ("" + hours + ":" + minutes + ":" + seconds);
-            // var sendImage = document.createElement('img');
-            // sendImage.src = "https://imgur.com/a/ytHIVeW";
-            // sendImageString = sendImage.outerHTML;
+
 
             sendImageString = "<img src=\"+ +\"";
-            var sendImageString = "<img src=\"https://www.visioncritical.com/wp-content/uploads/2014/12/BLG_Andrew-G.-River-Sample_09.13.12.png\"";
+            var sendImageString = "<img src=\"https://cdn.filestackcontent.com/yKdLFEQpRhKfM2DoIkr3\"";
             console.log(sendImageString)
- 
-            //<img src=\"https://mirror-api-playground.appspot.com/links/filoli-spring-fling.jpg\"
- 
+ 			
+ 			/* Correct image format for storage
+            <img src=\"https://mirror-api-playground.appspot.com/links/filoli-spring-fling.jpg\"
+ 			*/
+
             //creating items being pushed to glass and making a json
             var sendString = `<article class=\"photo\">\n  ${sendImageString} width=\"100%\" height=\"100%\">\n  <section>\n    <p class=\"text-auto-size\">\n \n  ${currentTime} </p>\n  <section>\n</article>\n `          
             console.log(sendString);
@@ -87,10 +99,10 @@ $(document).ready(function(){
         var parentNode = document.getElementById("slider-list");
         var time = document.createElement('li');
         var text = document.createTextNode(new Date().toString());
-        // text.style.font-color = "red";
+        // text.style.font-color = "red";		
         time.appendChild(text);
        
-        //Insers new image node here
+        //Insert new image node here
         parentNode.appendChild(time);      
  
         var elem = document.createElement("img");
@@ -130,7 +142,7 @@ $(document).ready(function(){
  	
  		//get image 
         var snap = snapshot(currentTime);
-
+		
         authAndSend(snap);
        	
         console.log(currentTime);

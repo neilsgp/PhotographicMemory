@@ -5,16 +5,16 @@ import json
 app = Flask(__name__)
 
 @app.route("/")
-def login():
-	return render_template('login.html')
+def index():
+	return render_template('index.html')
 
 @app.route("/pair")
 def pair():
 	return render_template('pair.html')
 
-@app.route("/index")
-def index():
-	return render_template('index.html')
+@app.route("/login")
+def login():
+	return render_template('login.html')
 
 @app.route("/glass")
 def glass():
