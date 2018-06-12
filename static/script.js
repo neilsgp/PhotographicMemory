@@ -50,9 +50,9 @@ $(document).ready(function(){
            
             var currentTime = ("" + hours + ":" + minutes + ":" + seconds);
 
-
             sendImageString = "<img src=\"+ +\"";
             var sendImageString = "<img src=\"https://cdn.filestackcontent.com/yKdLFEQpRhKfM2DoIkr3\"";
+            
             console.log(sendImageString)
  			
  			/* Correct image format for storage
@@ -96,19 +96,24 @@ $(document).ready(function(){
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
         var image = canvas.toDataURL("image/png");
  
+        var elem = document.createElement("img");
+        elem.src = image;
+        //elem.setAttribute("src", image);
+        elem.setAttribute("height", "300");
+        elem.setAttribute("width", "500");
+        console.log("hello hello hello");
+        console.log(elem);
+
         var parentNode = document.getElementById("slider-list");
         var time = document.createElement('li');
         var text = document.createTextNode(new Date().toString());
-        // text.style.font-color = "red";		
-        time.appendChild(text);
+		
+        //time.style.backgroundImage = elem;
+        console.log(time);
+        time.appendChild(elem);
        
         //Insert new image node here
         parentNode.appendChild(time);      
- 
-        var elem = document.createElement("img");
-        elem.setAttribute("src", image);
-        elem.setAttribute("height", "250");
-        elem.setAttribute("width", "300");
    
         //var document.getElementById("camera-roll").appendChild(elem);
         const constraints = {
